@@ -1,10 +1,11 @@
 # webpack-file-resolver
----
+
  
 To be used with `file-loader`, sometimes some dependencies use `readDirSync` or `readDir` to load these 
 dependencies. This replaces things like `readDirSync(__dirname + './someDep.someExt', 'base64')` with 
 `readDirSync(__webpack_require__(##), 'base64')` where `##` is the ID used by webpack. 
----
+
+
 #  Example Usage
 
 ```js 
