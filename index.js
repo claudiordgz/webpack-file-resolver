@@ -17,17 +17,14 @@ const __current_file__ = () => {
 
 function getRequires (options, chunks) {
   return chunks.reduce((c, chunk) => {
-    chunk.forEachModule((module) => {
-      const deps = module && module.fileDependencies && module.fileDependencies || []
-      deps.forEach((filepath) => {
-        if(options.test.test(filepath)) {
-          c.add({
-            path: filepath,
-            id: module.id
-          })
-        }
-      })
-    })
+    for(const module of chunk.modulesIterable) {
+      if(module.resource !== undefined && options.test.test(module.resource)) {
+        c.add({
+          path: module.resource,
+          id: module.id
+        })
+      }
+    }
     return c
   }, new Set())
 }
